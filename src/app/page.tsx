@@ -198,7 +198,23 @@ export default function Home() {
         </ul>
       )}
 
-      
+      <section
+        aria-label="Demo error states"
+        className="mt-8 rounded-2xl border border-dashed border-line-strong bg-card-surface/60 p-4"
+      >
+        <h2 className="text-[13px] font-semibold text-ink">Demo error states</h2>
+        <p className="mt-0.5 text-[12px] leading-snug text-ink-mute">
+          Routes that exercise the tracking screen&apos;s loading, error, and empty states.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link href="/order/ORD-9999" className={DEMO_LINK_CLASSES}>
+            Order not found
+          </Link>
+          <Link href="/order/demo-error" className={DEMO_LINK_CLASSES}>
+            Simulated network error
+          </Link>
+        </div>
+      </section>
     </ScreenShell>
   );
 }

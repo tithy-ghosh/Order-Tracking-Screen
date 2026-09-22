@@ -82,8 +82,27 @@ into a `DeliveryState` (`on_track | delivered | delayed | disputed |
 tracking_unavailable`), and every screen section reads from it — so the
 timeline, banner, and summary always agree.
 
-## Deploy
+## Prompts Used
 
-Static/dynamic routes both deploy out of the box; the only interactive route
-is `/order/[orderId]`. Recommended target: [Vercel](https://vercel.com)
-(import the repo and it works with zero configuration).
+
+**Step 1 — Project brief (Claude):**
+> "I want to build an order tracking screen for an e-commerce app — mobile-first,
+> Next.js, TypeScript, Tailwind. It needs a delivery timeline (confirmed → shipped
+> → out for delivery → delivered), a status banner for edge cases like delayed or
+> disputed orders, ETA, product summary, support options, and loading/error states.
+> Before writing any code, break this into phases and give me the folder structure
+> first."
+
+**Step 2 — Folder structure:**
+> "Give me the folder structure for this project first, before any phase work."
+
+**Step 3 — Phase-by-phase build:**
+> "Now give me the work for Phase 1 only. Don't move to the next phase until I
+> confirm this one is done."
+> (repeated for each subsequent phase — data layer, status logic, UI components,
+> loading/error states, responsiveness)
+
+**UI design (opencode):**
+> Used opencode to design and refine the visual styling on top of the structure
+> and components from the phases above, using the tokens defined in
+> `src/app/globals.css`.

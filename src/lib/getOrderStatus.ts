@@ -1,15 +1,19 @@
 import type { DeliveryState, Order } from "@/data/types";
 
-export function getDeliveryState(order: Order): DeliveryState {
+export function getDeliveryState(order: Order, now: number = Date.now()): DeliveryState {
   if (order.status === "delivered") {
-    return order.customerReportedNotReceived ? "disputed" : "delivered";
+    const confirmationDeadline = order.customerNotReceivedBy;
+    if (confirmationDeadline) {
+      return now >= new Date(confirmationDeadline).getTime() ? "disputed" : "delivered";
+    }
+    return "delivered";
   }
 
   if (order.trackingEvents.length === 0) {
     return "tracking_unavailable";
   }
 
-  if (isPast(order.estimatedDelivery)) {
+  if (isPast(order.estimatedDelivery, now)) {
     return "delayed";
   }
 
