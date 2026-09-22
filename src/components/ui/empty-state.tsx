@@ -1,23 +1,15 @@
 /**
  * components/ui/empty-state.tsx
  *
- * Not a shadcn component — this one is custom, since shadcn has no
- * built-in "empty/error state" primitive. Built from Card + Button so
- * it still matches the rest of the design system.
- *
- * Used directly for the fetch-error case (useOrder's "error" status),
- * and composed into OrderStateBanner for tracking_unavailable, so the
- * same visual language covers every "nothing to show, here's why and
- * what to do" moment in the app.
- *
- * Copy guidance: explain what happened and what to do next, in the
- * interface's voice — no apologies, no vague "Oops!" messaging.
+ * Custom empty/error state primitive (shadcn has no built-in one).
+ * Used directly for the fetch-error case and for search-with-no-results
+ * on the orders screen — one visual language for every "nothing to
+ * show, here's why and what to do" moment.
  */
 
 import type { LucideIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 export interface EmptyStateProps {
@@ -38,19 +30,26 @@ export function EmptyState({
   className,
 }: EmptyStateProps) {
   return (
-    <Card className={cn("border-dashed", className)}>
-      <CardContent className="flex flex-col items-center gap-3 py-10 text-center">
-        <Icon className="h-8 w-8 text-muted-foreground" aria-hidden="true" />
-        <div className="space-y-1">
-          <p className="font-medium">{title}</p>
-          <p className="text-sm text-muted-foreground">{description}</p>
-        </div>
-        {actionLabel && onAction && (
-          <Button variant="outline" size="sm" onClick={onAction} className="mt-2">
-            {actionLabel}
-          </Button>
-        )}
-      </CardContent>
-    </Card>
+    <div
+      className={cn(
+        "flex flex-col items-center gap-4 rounded-2xl border border-dashed border-line-strong bg-card-surface px-6 py-12 text-center",
+        className
+      )}
+    >
+      <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-soft text-brand shadow-card">
+        <Icon className="h-7 w-7" aria-hidden="true" />
+      </span>
+      <div className="space-y-1.5">
+        <p className="text-[15px] font-semibold text-ink">{title}</p>
+        <p className="mx-auto max-w-[260px] text-[13px] leading-snug text-ink-mute">
+          {description}
+        </p>
+      </div>
+      {actionLabel && onAction && (
+        <Button variant="outline" size="sm" onClick={onAction} className="mt-1 rounded-full px-4">
+          {actionLabel}
+        </Button>
+      )}
+    </div>
   );
 }

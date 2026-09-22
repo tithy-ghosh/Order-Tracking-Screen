@@ -1,20 +1,3 @@
-/**
- * data/mockOrders.ts
- *
- * Static mock dataset standing in for a backend. Deliberately includes one
- * order for every DeliveryState so the UI can be exercised end-to-end:
- *
- *   ORD-1001  on_track              — normal happy path, ETA still ahead
- *   ORD-1002  delayed               — ETA has passed, still "out_for_delivery"
- *   ORD-1003  disputed              — marked "delivered", customer disagrees
- *   ORD-1004  tracking_unavailable  — order placed, no tracking events yet
- *   ORD-1005  delivered             — delivered normally, no dispute
- *
- * Import `getMockOrderById` from components/hooks instead of reaching into
- * this array directly — that keeps the "data access" seam in one place,
- * making it trivial to swap in a real fetch() later.
- */
-
 import type { Order } from "./types";
 
 const now = new Date();
@@ -35,7 +18,7 @@ export const mockOrders: Order[] = [
       {
         id: "P-01",
         name: "Wireless Noise-Cancelling Headphones",
-        imageUrl: "/products/headphones.jpg",
+        imageUrl: "/products/headphones.svg",
         quantity: 1,
         price: 89.99,
       },
@@ -58,7 +41,7 @@ export const mockOrders: Order[] = [
       {
         id: "P-02",
         name: "Ceramic Coffee Mug Set (4-pack)",
-        imageUrl: "/products/mugs.jpg",
+        imageUrl: "/products/mugs.svg",
         quantity: 1,
         price: 24.5,
       },
@@ -82,7 +65,7 @@ export const mockOrders: Order[] = [
       {
         id: "P-03",
         name: "Mechanical Keyboard (Blue Switches)",
-        imageUrl: "/products/keyboard.jpg",
+        imageUrl: "/products/keyboard.svg",
         quantity: 1,
         price: 65.0,
       },
@@ -107,7 +90,7 @@ export const mockOrders: Order[] = [
       {
         id: "P-04",
         name: "Running Shoes — Size 9",
-        imageUrl: "/products/shoes.jpg",
+        imageUrl: "/products/shoes.svg",
         quantity: 1,
         price: 54.99,
       },
@@ -127,7 +110,7 @@ export const mockOrders: Order[] = [
       {
         id: "P-05",
         name: "Desk Lamp with USB Charging Port",
-        imageUrl: "/products/lamp.jpg",
+        imageUrl: "/products/lamp.svg",
         quantity: 2,
         price: 19.99,
       },
@@ -142,7 +125,6 @@ export const mockOrders: Order[] = [
   },
 ];
 
-/** Looks up a mock order by id. Returns undefined if not found. */
 export function getMockOrderById(id: string): Order | undefined {
   return mockOrders.find((order) => order.id === id);
 }
